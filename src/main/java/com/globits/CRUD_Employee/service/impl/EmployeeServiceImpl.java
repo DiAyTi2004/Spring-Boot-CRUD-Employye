@@ -1,5 +1,6 @@
 package com.globits.CRUD_Employee.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,26 +39,32 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	public List<EmployeeDTO> getAllEmployees() {
-		// TODO Auto-generated method stub
-		return null;
+		List<EmployeeEntity> entities = employeeRepository.findAll();
+		List<EmployeeDTO> dtos = new ArrayList<EmployeeDTO>();
+		for (EmployeeEntity entity : entities) {
+			dtos.add(toDTO(entity));
+		}
+		return dtos;
 	}
 
 	@Override
 	public EmployeeDTO createEmployee(EmployeeDTO employee) {
-		// TODO Auto-generated method stub
-		return null;
+		EmployeeEntity entity = toEntity(employee);
+		EmployeeEntity resEntity = employeeRepository.save(entity);
+		return toDTO(resEntity);
 	}
 
 	@Override
 	public EmployeeDTO updateEmployee(EmployeeDTO employee, Integer employeeId) {
-		// TODO Auto-generated method stub
-		return null;
+		employee.setEmployeeId(employeeId);
+		EmployeeEntity entity = toEntity(employee);
+		EmployeeEntity resEntity = employeeRepository.save(entity);
+		return toDTO(resEntity);
 	}
 
 	@Override
 	public void deleteEmployee(Integer employeeId) {
-		// TODO Auto-generated method stub
-
+		employeeRepository.deleteById(employeeId);
 	}
 
 }

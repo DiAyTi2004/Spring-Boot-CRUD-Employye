@@ -32,6 +32,10 @@ public class EmployeeEntity {
 	@Column
 	private Date birthDate;
 
+	public EmployeeEntity() {
+		super();
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "gender_id")
 	private GenderEntity genderEntity;
